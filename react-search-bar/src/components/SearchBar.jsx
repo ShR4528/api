@@ -6,15 +6,18 @@ const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState('');
 
   const fetchData = (value) => {
-    fetch('https://jsonplaceholder.typicode.com/posts') //posts users
+    fetch('https://jsonplaceholder.typicode.com/users') //posts users
       .then((response) => response.json())
       .then((json) => {
-        const results = json.filter((post) => {
+        const results = json.filter((user) => {
           return (
             value &&
-            post &&
-            post.title &&
-            post.title.toLowerCase().includes(value)
+            user &&
+            user.username &&
+            user.website &&
+            user.email &&
+            user.name &&
+            user.name.toLowerCase().includes(value)
           );
         });
         setResults(results);
