@@ -2,11 +2,23 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import './SearchBar.css';
 
-const SearchBar = () => {
+const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState('');
+
   const fetchData = (value) => {
-    fetch('https://jsonplaceholder.typicode.com/posts').then();
-    //users
+    fetch('https://jsonplaceholder.typicode.com/posts') //posts users
+      .then((response) => response.json())
+      .then((json) => {
+        const results = json.filter((post) => {
+          return (
+            value &&
+            post &&
+            post.title &&
+            post.title.toLowerCase().includes(value)
+          );
+        });
+        setResults(results);
+      });
   };
   const handleChange = (value) => {
     setInput(value);
